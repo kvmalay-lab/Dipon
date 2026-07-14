@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar } from 'lucide-react';
 
 interface NewsCardProps {
+  key?: any;
   title: string;
   summary?: string;
   category?: string;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 interface DivisionCardProps {
+  key?: any;
   title: string;
   description: string;
   image: string;

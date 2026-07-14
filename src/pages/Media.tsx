@@ -1,40 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageHero from '../components/PageHero';
 import SectionHeader from '../components/SectionHeader';
 import NewsCard from '../components/NewsCard';
 import CTABanner from '../components/CTABanner';
 
-const newsArticles = [
-  {
-    slug: "strategic-partnership-2023",
-    title: "Dipon Group Signs New Strategic Partnership for Infrastructure Development",
-    summary: "DIPON Group has entered into a strategic collaboration agreement to expand its engineering capabilities and execute large-scale PPP projects.",
-    category: "Press Release",
-    date: "October 12, 2023",
-    image: "https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=800&auto=format&fit=crop"
-  },
-  {
-    slug: "hse-excellence-awards",
-    title: "Dipon Group Celebrates Annual HSE Excellence Awards 2023",
-    summary: "Celebrating safety milestones and honoring project teams that achieved zero incidents while complying with strict ISO standards.",
-    category: "News",
-    date: "October 11, 2023",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356f12?q=80&w=800&auto=format&fit=crop"
-  },
-  {
-    slug: "african-market-expansion",
-    title: "Dipon Group Announces Expansion into Select African Infrastructure Markets",
-    summary: "Leveraging our 55+ years of pipeline and power plant construction experience to support emerging infrastructure networks.",
-    category: "Press Release",
-    date: "October 10, 2023",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop"
-  }
-];
-
 const categories = ["All Media", "News", "Press Releases", "Events"];
 
 export default function Media() {
   const [activeCategory, setActiveCategory] = useState("All Media");
+  const [newsArticles, setNewsArticles] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('/api/v1/news')
+      .then(res => res.json())
+      .then(json => {
+        if (json.success && json.data && json.data.length > 0) {
+          const mapped = json.data.map((item: any) => ({
+            slug: item.slug,
+            title: item.title,
+            summary: item.summary,
+            category: item.category || 'News',
+            date: item.publishDate 
+              ? new Date(item.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+              : new Date(item.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+            image: item.featuredImage || "https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=800&auto=format&fit=crop"
+          }));
+          setNewsArticles(mapped);
+        } else {
+          // Fallback static articles
+          setNewsArticles([
+            { slug: "strategic-partnership-2023", title: "Dipon Group Signs New Strategic Partnership for Infrastructure Development", summary: "DIPON Group has entered into a strategic collaboration agreement to expand its engineering capabilities and execute large-scale PPP projects.", category: "Press Release", date: "October 12, 2023", image: "https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=800&auto=format&fit=crop" },
+            { slug: "hse-excellence-awards", title: "Dipon Group Celebrates Annual HSE Excellence Awards 2023", summary: "Celebrating safety milestones and honoring project teams that achieved zero incidents while complying with strict ISO standards.", category: "News", date: "October 11, 2023", image: "https://images.unsplash.com/photo-1504307651254-35680f356f12?q=80&w=800&auto=format&fit=crop" },
+            { slug: "african-market-expansion", title: "Dipon Group Announces Expansion into Select African Infrastructure Markets", summary: "Leveraging our 55+ years of pipeline and power plant construction experience to support emerging infrastructure networks.", category: "Press Release", date: "October 10, 2023", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop" }
+          ]);
+        }
+      })
+      .catch(() => {
+        // Fallback static articles
+        setNewsArticles([
+          { slug: "strategic-partnership-2023", title: "Dipon Group Signs New Strategic Partnership for Infrastructure Development", summary: "DIPON Group has entered into a strategic collaboration agreement to expand its engineering capabilities and execute large-scale PPP projects.", category: "Press Release", date: "October 12, 2023", image: "https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=800&auto=format&fit=crop" },
+          { slug: "hse-excellence-awards", title: "Dipon Group Celebrates Annual HSE Excellence Awards 2023", summary: "Celebrating safety milestones and honoring project teams that achieved zero incidents while complying with strict ISO standards.", category: "News", date: "October 11, 2023", image: "https://images.unsplash.com/photo-1504307651254-35680f356f12?q=80&w=800&auto=format&fit=crop" },
+          { slug: "african-market-expansion", title: "Dipon Group Announces Expansion into Select African Infrastructure Markets", summary: "Leveraging our 55+ years of pipeline and power plant construction experience to support emerging infrastructure networks.", category: "Press Release", date: "October 10, 2023", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop" }
+        ]);
+      });
+  }, []);
 
   const filteredArticles = activeCategory === "All Media"
     ? newsArticles

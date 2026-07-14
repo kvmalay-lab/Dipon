@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { MapPin, Phone, Mail } from 'lucide-react';
 
 interface OfficeCardProps {
+  key?: any;
   name: string;
   address: string;
   phone?: string;

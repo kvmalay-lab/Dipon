@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 interface ProjectCardProps {
+  key?: any;
   title: string;
   category: string;
   location?: string;

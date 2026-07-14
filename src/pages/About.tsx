@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import PageHero from '../components/PageHero';
 import SectionHeader from '../components/SectionHeader';
@@ -6,6 +7,54 @@ import CTABanner from '../components/CTABanner';
 import { Eye, Target, Award, Shield, Users, Heart } from 'lucide-react';
 
 export default function About() {
+  const [stats, setStats] = useState({
+    years: new Date().getFullYear() - 1970,
+    projects: 260,
+    countries: 5,
+    equipment: 550
+  });
+
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const [projRes, countryRes, equipRes] = await Promise.all([
+          fetch('/api/v1/projects'),
+          fetch('/api/v1/countries'),
+          fetch('/api/v1/equipment')
+        ]);
+        
+        const projData = await projRes.json();
+        const countryData = await countryRes.json();
+        const equipData = await equipRes.json();
+
+        let projectsCount = 260;
+        let countriesCount = 5;
+        let equipmentCount = 550;
+
+        if (projData.success && projData.data && projData.data.length > 0) {
+          projectsCount = projData.data.length;
+        }
+        if (countryData.success && countryData.data && countryData.data.length > 0) {
+          countriesCount = countryData.data.length;
+        }
+        if (equipData.success && equipData.data && equipData.data.length > 0) {
+          equipmentCount = equipData.data.reduce((acc: number, item: any) => acc + (item.quantity || 0), 0);
+          if (equipmentCount === 0) equipmentCount = 550;
+        }
+
+        setStats({
+          years: new Date().getFullYear() - 1970,
+          projects: projectsCount,
+          countries: countriesCount,
+          equipment: equipmentCount
+        });
+      } catch (err) {
+        console.error('Failed to load stats dynamically:', err);
+      }
+    };
+
+    loadStats();
+  }, []);
   return (
     <div>
       <PageHero
@@ -128,10 +177,10 @@ export default function About() {
         <div className="absolute inset-0 bg-grid-pattern opacity-20" />
         <div className="container-max relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
-            <StatCounter value="55+" label="Years of Experience" dark delay={0} />
-            <StatCounter value="260+" label="Completed Projects" dark delay={1} />
-            <StatCounter value="5+" label="Countries Operating" dark delay={2} />
-            <StatCounter value="550+" label="Heavy Equipment" dark delay={3} />
+            <StatCounter value={`${stats.years}+`} label="Years of Experience" dark delay={0} />
+            <StatCounter value={`${stats.projects}+`} label="Completed Projects" dark delay={1} />
+            <StatCounter value={`${stats.countries}+`} label="Countries Operating" dark delay={2} />
+            <StatCounter value={`${stats.equipment}+`} label="Heavy Equipment" dark delay={3} />
           </div>
         </div>
       </section>

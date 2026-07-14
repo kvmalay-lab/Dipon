@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Globe } from 'lucide-react';
 import PageHero from '../components/PageHero';
@@ -16,14 +16,35 @@ export default function Contact() {
   });
   
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [offices, setOffices] = useState<any[]>([]);
 
-  const offices = [
-    { country: "Bangladesh", city: "Dhaka (HQ)", address: "Rangs FC Enclave, Level 3, 4, 10 & 11, Plot #6/A, Road 32, Gulshan, Dhaka 1212", phone: "+880-2-9606501115", email: "info@dipongroup.com", isHQ: true },
-    { country: "India", city: "New Delhi", address: "42, Community Centre, Saket, New Delhi 110017", phone: "+91-11-2696-7777", email: "india@dipongroup.com" },
-    { country: "Malaysia", city: "Kuala Lumpur", address: "Level 15, Menara Binjai, No. 2 Jalan Binjai, 50450 KL", phone: "+60 3 2181 1234", email: "malaysia@dipongroup.com" },
-    { country: "Singapore", city: "Singapore", address: "10 Anson Road, #26-04 International Plaza, Singapore 079903", phone: "+65 6220 1234", email: "singapore@dipongroup.com" },
-    { country: "UAE", city: "Dubai", address: "Office 702, Onyx Tower 1, The Greens, Dubai", phone: "+971 4 399 1234", email: "uae@dipongroup.com" }
-  ];
+  useEffect(() => {
+    fetch('/api/v1/offices')
+      .then(res => res.json())
+      .then(json => {
+        if (json.success && json.data && json.data.length > 0) {
+          setOffices(json.data);
+        } else {
+          // Fallback static offices
+          setOffices([
+            { name: "Bangladesh HQ", address: "Rangs FC Enclave, Level 3, 4, 10 & 11, Plot #6/A, Road 32, Gulshan, Dhaka 1212", phone: "+880-2-9606501115", email: "info@dipongroup.com", isHeadquarter: true },
+            { name: "New Delhi Office", address: "42, Community Centre, Saket, New Delhi 110017", phone: "+91-11-2696-7777", email: "india@dipongroup.com", isHeadquarter: false },
+            { name: "Kuala Lumpur Office", address: "Level 15, Menara Binjai, No. 2 Jalan Binjai, 50450 KL", phone: "+60 3 2181 1234", email: "malaysia@dipongroup.com", isHeadquarter: false },
+            { name: "Singapore Office", address: "10 Anson Road, #26-04 International Plaza, Singapore 079903", phone: "+65 6220 1234", email: "singapore@dipongroup.com", isHeadquarter: false },
+            { name: "Dubai Office", address: "Office 702, Onyx Tower 1, The Greens, Dubai", phone: "+971 4 399 1234", email: "uae@dipongroup.com", isHeadquarter: false }
+          ]);
+        }
+      })
+      .catch(() => {
+        setOffices([
+          { name: "Bangladesh HQ", address: "Rangs FC Enclave, Level 3, 4, 10 & 11, Plot #6/A, Road 32, Gulshan, Dhaka 1212", phone: "+880-2-9606501115", email: "info@dipongroup.com", isHeadquarter: true },
+          { name: "New Delhi Office", address: "42, Community Centre, Saket, New Delhi 110017", phone: "+91-11-2696-7777", email: "india@dipongroup.com", isHeadquarter: false },
+          { name: "Kuala Lumpur Office", address: "Level 15, Menara Binjai, No. 2 Jalan Binjai, 50450 KL", phone: "+60 3 2181 1234", email: "malaysia@dipongroup.com", isHeadquarter: false },
+          { name: "Singapore Office", address: "10 Anson Road, #26-04 International Plaza, Singapore 079903", phone: "+65 6220 1234", email: "singapore@dipongroup.com", isHeadquarter: false },
+          { name: "Dubai Office", address: "Office 702, Onyx Tower 1, The Greens, Dubai", phone: "+971 4 399 1234", email: "uae@dipongroup.com", isHeadquarter: false }
+        ]);
+      });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -233,12 +254,12 @@ export default function Contact() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {offices.map((office, i) => (
               <OfficeCard
-                key={i}
-                name={`${office.city} Office`}
+                key={office.id || i}
+                name={office.name}
                 address={office.address}
                 phone={office.phone}
                 email={office.email}
-                isHQ={office.isHQ}
+                isHQ={office.isHeadquarter}
                 index={i}
               />
             ))}

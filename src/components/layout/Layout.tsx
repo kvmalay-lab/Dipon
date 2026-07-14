@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from '../SEO';
 
 export default function Layout() {
   const location = useLocation();
@@ -13,6 +14,7 @@ export default function Layout() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <SEO />
       <Navbar />
       <AnimatePresence mode="wait">
         <motion.main

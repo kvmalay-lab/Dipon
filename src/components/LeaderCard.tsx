@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { User } from 'lucide-react';
 
 interface LeaderCardProps {
+  key?: any;
   name: string;
   designation: string;
   bio?: string;

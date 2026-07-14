@@ -17,6 +17,10 @@ const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-dev';
 router.post('/login', authLimiter, async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email || typeof email !== 'string' || !password || typeof password !== 'string') {
+      return res.status(400).json({ success: false, error: { message: 'Email and password are required and must be strings' } });
+    }
+
     const userList = await db
       .select({
         user: users,
