@@ -17,9 +17,10 @@ export default function ProjectCard({ title, category, location, image, slug, in
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05, transition: { duration: 0.4 } }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="group relative h-[380px] rounded-2xl overflow-hidden cursor-pointer"
+      className="group relative h-[380px] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-500"
     >
       <div className="absolute inset-0 z-0">
         <img

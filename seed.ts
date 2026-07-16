@@ -1,4 +1,6 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
+import fs from 'fs';
+const mapping = JSON.parse(fs.readFileSync('image_mapping.json', 'utf-8'));
 import { Pool } from 'pg';
 import * as schema from './src/db/schema.js';
 import bcrypt from 'bcryptjs';
@@ -179,6 +181,119 @@ async function main() {
 
   console.log('Seeding projects...');
   await db.insert(schema.projects).values([
+    // Existing engineering projects using mapping for hero images
+    {
+      id: uuidv4(),
+      slug: 'bibiyana-gas-plant',
+      title: 'Bibiyana Gas Processing Plant',
+      shortDescription: "EPC pipeline and facility construction for Chevron's major gas field.",
+      overview: 'Dipon Group successfully executed the mechanical, piping, and structural works for the Bibiyana Gas Expansion Project, ensuring adherence to world-class safety and quality standards.',
+      divisionId: divisionMap.engineering,
+      status: 'published',
+      featured: true,
+      heroImage: mapping['/engineering-construction/'],
+      thumbnail: mapping['/engineering-construction/'],
+    },
+    {
+      id: uuidv4(),
+      slug: 'maheshkhali-anwara-gas-transmission',
+      title: 'Maheshkhali-Anwara Gas Transmission',
+      shortDescription: 'Laying high-pressure gas grid pipelines across challenging delta terrains.',
+      overview: 'Successfully executed cross-country pipeline laying of 30-inch and 42-inch gas transmission lines for GTCL under tight project deadlines and complex soil conditions.',
+      divisionId: divisionMap.engineering,
+      status: 'published',
+      featured: true,
+      heroImage: mapping['/engineering-construction/'],
+      thumbnail: mapping['/engineering-construction/'],
+    },
+    {
+      id: uuidv4(),
+      slug: 'maitree-super-thermal-power-project',
+      title: 'Maitree Super Thermal Power Project',
+      shortDescription: 'Erection and structural works for the 1320 MW coal-fired power station.',
+      overview: 'Completed major civil foundation, mechanical piping erection, and commissioning assistance for the flagship joint-venture power plant in Rampal, Bagerhat.',
+      divisionId: divisionMap.engineering,
+      status: 'published',
+      featured: false,
+      heroImage: mapping['/engineering-construction/'],
+      thumbnail: mapping['/engineering-construction/'],
+    },
+    // Existing IT projects
+    {
+      id: uuidv4(),
+      slug: 'national-id-guinea',
+      title: 'National ID and Population Management',
+      shortDescription: 'End-to-end digital identity solution for the Republic of Guinea.',
+      overview: 'A landmark IT project delivering secure biometric enrollment, national registry database, and smart card issuance for millions of citizens under a 15-year concession.',
+      divisionId: divisionMap.it,
+      status: 'published',
+      featured: true,
+      heroImage: mapping['/it-ites/'],
+      thumbnail: mapping['/it-ites/'],
+    },
+    {
+      id: uuidv4(),
+      slug: '100-mw-hfo-power-plant',
+      title: '100 MW HFO Power Plant',
+      shortDescription: 'EPC dual-fuel power generation site construction in Jamalpur.',
+      overview: 'Completed fast-track design, logistics shipping, mechanical assembly, and grid integration of a 100 megawatt heavy fuel oil power plant for Powerpac Mutiara.',
+      divisionId: divisionMap.engineering,
+      status: 'published',
+      featured: false,
+      heroImage: mapping['/engineering-construction/'],
+      thumbnail: mapping['/engineering-construction/'],
+    },
+    {
+      id: uuidv4(),
+      slug: 'e-passport-project',
+      title: 'E-Passport Project',
+      shortDescription: 'National electronic passport management and biometric authentication systems.',
+      overview: 'Integrated automated border control gates, secure chip personalization centers, and biometric registration kiosks across regional passport offices.',
+      divisionId: divisionMap.it,
+      status: 'published',
+      featured: false,
+      heroImage: mapping['/it-ites/'],
+      thumbnail: mapping['/it-ites/'],
+    },
+    // New missing projects (display order logical continuation)
+    {
+      id: uuidv4(),
+      slug: 'omera-lpg-terminal',
+      title: 'Omera LPG Terminal',
+      shortDescription: 'Construction and commissioning of LPG storage and regasification terminal.',
+      overview: 'Delivered a state-of-the‑state LPG terminal for Omera Petroleum, enabling safe storage and distribution of LPG across Bangladesh.',
+      divisionId: divisionMap.engineering,
+      status: 'published',
+      featured: false,
+      heroImage: mapping['/engineering-construction/'],
+      thumbnail: mapping['/engineering-construction/'],
+    },
+    {
+      id: uuidv4(),
+      slug: 'main-gas-grid-lines',
+      title: 'Main Gas Grid Lines',
+      shortDescription: 'Expansion of national high‑pressure gas transmission network.',
+      overview: 'Implemented extensive pipeline works to interconnect major gas fields with consumer hubs, enhancing supply reliability.',
+      divisionId: divisionMap.engineering,
+      status: 'published',
+      featured: false,
+      heroImage: mapping['/engineering-construction/'],
+      thumbnail: mapping['/engineering-construction/'],
+    },
+    {
+      id: uuidv4(),
+      slug: 'fishermen-id-card-program',
+      title: 'Fishermen ID Card Program',
+      shortDescription: 'Digital identity issuance for fishermen communities.',
+      overview: 'Developed a mobile‑first ID issuance platform enabling safe access to financial services for coastal fishing populations.',
+      divisionId: divisionMap.it,
+      status: 'published',
+      featured: false,
+      heroImage: mapping['/it-ites/'],
+      thumbnail: mapping['/it-ites/'],
+    },
+  ]);
+
     {
       id: uuidv4(),
       slug: 'bibiyana-gas-plant',
@@ -342,30 +457,30 @@ async function main() {
   await db.insert(schema.downloads).values([
     {
       id: uuidv4(),
-      title: 'Corporate Brochure 2024',
-      description: 'A comprehensive overview of Dipon Group\'s history, business divisions, and global capabilities.',
-      fileUrl: 'https://www.dipongroup.com/downloads/corporate-brochure-2024.pdf',
+      title: 'Corporate Capability Profile',
+      description: 'A comprehensive overview of Dipon Group’s capabilities. Available upon request.',
+      fileUrl: null,
       fileType: 'PDF',
-      fileSize: '4.8 MB',
-      isPublic: true,
+      fileSize: '0 MB',
+      isPublic: false,
     },
     {
       id: uuidv4(),
       title: 'Engineering Division Profile',
       description: 'Detailed technical capabilities, equipment fleet list, and completed project case studies.',
-      fileUrl: 'https://www.dipongroup.com/downloads/engineering-profile.pdf',
+      fileUrl: null,
       fileType: 'PDF',
-      fileSize: '3.2 MB',
-      isPublic: true,
+      fileSize: '0 MB',
+      isPublic: false,
     },
     {
       id: uuidv4(),
       title: 'IT & ITES Solutions Brochure',
       description: 'Overview of our digital identity, smart card, and secure trust services.',
-      fileUrl: 'https://www.dipongroup.com/downloads/it-solutions-brochure.pdf',
+      fileUrl: null,
       fileType: 'PDF',
-      fileSize: '2.1 MB',
-      isPublic: true,
+      fileSize: '0 MB',
+      isPublic: false,
     },
   ]);
 
@@ -377,6 +492,11 @@ async function main() {
     { id: uuidv4(), name: 'Government of Bangladesh', industry: 'IT & ITES', website: 'https://bangladesh.gov.bd', displayOrder: 4 },
     { id: uuidv4(), name: 'Powerpac Mutiara', industry: 'Power', website: '', displayOrder: 5 },
     { id: uuidv4(), name: 'Petrobangla', industry: 'Oil & Gas', website: 'https://petrobangla.org.bd', displayOrder: 6 },
+    // New clients added below
+    { id: uuidv4(), name: 'Omera Petroleum', industry: 'Oil & Gas', website: 'https://omerapetroleum.com', displayOrder: 7 },
+    { id: uuidv4(), name: 'Titas Gas', industry: 'Oil & Gas', website: 'https://titasgas.com', displayOrder: 8 },
+    { id: uuidv4(), name: 'GAIL India', industry: 'Oil & Gas', website: 'https://gailindia.com', displayOrder: 9 },
+    // End of new clients
   ]);
 
   console.log('Seeding awards...');
