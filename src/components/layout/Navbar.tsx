@@ -73,13 +73,8 @@ export default function Navbar() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${navBg}`}>
         <div className="container-max flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className={`flex items-center gap-1.5 ${textColor} transition-colors duration-300`}>
-            <div className="w-8 h-8 rounded-lg bg-[var(--color-primary-electric)] flex items-center justify-center">
-              <span className="text-white font-display font-bold text-sm">D</span>
-            </div>
-            <span className="font-display font-bold text-xl tracking-tight">
-              DIPON<span className="font-normal opacity-70 ml-0.5">GROUP</span>
-            </span>
+          <Link to="/" className="flex items-center transition-opacity hover:opacity-90">
+            <img src="/assets/logo.jpg" alt="Dipon Group" className="h-12 w-auto object-contain rounded" />
           </Link>
 
           {/* Desktop Nav */}
@@ -247,11 +242,8 @@ export default function Navbar() {
             >
               {/* Header */}
               <div className="flex items-center justify-between p-5 border-b border-gray-100">
-                <Link to="/" className="flex items-center gap-1.5" onClick={() => setIsMobileMenuOpen(false)}>
-                  <div className="w-7 h-7 rounded-lg bg-[var(--color-primary-electric)] flex items-center justify-center">
-                    <span className="text-white font-display font-bold text-xs">D</span>
-                  </div>
-                  <span className="font-display font-bold text-lg text-[var(--color-primary-navy)]">DIPON</span>
+                <Link to="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+                  <img src="/assets/logo.jpg" alt="Dipon Group" className="h-8 w-auto object-contain rounded" />
                 </Link>
                 <button onClick={() => setIsMobileMenuOpen(false)} className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
                   <X className="w-5 h-5 text-gray-500" />

@@ -378,6 +378,7 @@ async function main() {
       biography: 'Founder of Dipon Gas who transformed the pipeline construction business into a multi-sector group of high repute under his leadership.',
       displayOrder: 1,
       featured: true,
+      photo: '/assets/leadership/mahmud-hasan.png',
     },
     {
       id: uuidv4(),
@@ -387,6 +388,7 @@ async function main() {
       biography: 'Successfully spearheaded and managed to expand the business arena of Dipon Group into a multi-dimensional and multi-faceted business organization thereby accelerating growth to help scale new heights and cross new horizons.',
       displayOrder: 2,
       featured: true,
+      photo: '/assets/leadership/rashed-mahmud.png',
     },
     {
       id: uuidv4(),
@@ -396,6 +398,7 @@ async function main() {
       biography: 'Led new initiatives of Dipon Group like real estate development and established it as a reliable, trustworthy and committed company in the Bangladesh Real Estate Market.',
       displayOrder: 3,
       featured: true,
+      photo: '/assets/leadership/yaseer-mahmud.png',
     },
     {
       id: uuidv4(),
@@ -405,6 +408,7 @@ async function main() {
       biography: 'Graduate from MNIT Jaipur with PG in International Trade and garnered experience with conglomerates like TATA and Reliance in different sectors.',
       displayOrder: 4,
       featured: true,
+      photo: '/assets/leadership/aarouni-verma.png',
     },
     {
       id: uuidv4(),
@@ -414,6 +418,7 @@ async function main() {
       biography: 'Graduate from MNIT Jaipur with PG in Adv Construction Management, former SVP of Wilbur Smith Associates, has vast experience in Energy and Infrastructure Projects.',
       displayOrder: 5,
       featured: true,
+      photo: '/assets/leadership/uttam-singh.png',
     },
     {
       id: uuidv4(),
@@ -423,6 +428,7 @@ async function main() {
       biography: 'MBA with vast experience in investment banking, Former Head of investment division of IPDC, Country Head of Khulna Power Company Ltd.',
       displayOrder: 6,
       featured: false,
+      photo: '/assets/leadership/syed-javed-iqbal.png',
     },
     {
       id: uuidv4(),
@@ -432,6 +438,7 @@ async function main() {
       biography: 'M. Tech from IIT-Delhi, PhD from Germany, Former MD & CEO of Petronet LNG Ltd, Director Incharge – HR, Business Development & Joint Ventures in ONGC Ltd.',
       displayOrder: 7,
       featured: false,
+      photo: '/assets/leadership/dr-ak-balyan.jpg',
     },
     {
       id: uuidv4(),
@@ -441,6 +448,7 @@ async function main() {
       biography: 'M.Sc & A.I.S.M from IIT Dhanbad, India, Former Regional Director, Dept. of Atomic Energy, India and Adviser to the Chairman, Reliance Industries Limited.',
       displayOrder: 8,
       featured: false,
+      photo: '/assets/leadership/sc-verma.png',
     },
     {
       id: uuidv4(),
@@ -450,6 +458,7 @@ async function main() {
       biography: 'Mechanical Engineer with four decades of experience in the Gas sector as former MD of Bangladesh Gas Field Company Ltd., Bakhrabad Gas System Ltd. and Director of Petrobangla.',
       displayOrder: 9,
       featured: false,
+      photo: null,
     },
   ]);
 
